@@ -13,7 +13,7 @@ public class Triangle : MonoBehaviour {
     private Color OriginalColor;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
 
@@ -22,12 +22,6 @@ public class Triangle : MonoBehaviour {
         OriginalColor = TrianglePiece.color;
 
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-       
-	}
     private void OnMouseOver()
     {
         {
@@ -38,88 +32,69 @@ public class Triangle : MonoBehaviour {
             }
             if (GM.Player1Turn == true)
             {
-
-
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 255);
-
 
                 if (Input.GetMouseButtonUp(1))
                 {
-
-                    if ( P2Captured == false)
-                    {
-                        P2Captured = true;
-                        P1Captured = false;
-                        Player1Captured();
-
-                    }
-                    else if (P1Captured == true)
+                    if (P1Captured == true)
                     {
                         return;
                     }
-                    else if (P2Captured ==true)
+                    if (P2Captured == false)
                     {
-                        GM.P1Score++;
-                        GM.P2Score--;
+                        P1Captured = true;
+                        P2Captured = false;
+                        OriginalColor = new Color(0, 0, 255);
+
+                        Player1Captured();
+
                     }
-
+                    else if (P2Captured == true)
+                    {
+                        P1Captured = false;
+                        P2Captured = true;
+                        OriginalColor = new Color(0, 0, 255);
+                        Player1CapturedP2();
+                    }
+                     
+                   
                 }
-
-
-
             }
             if (GM.Player2Turn == true)
             {
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
 
-
                 if (Input.GetMouseButtonUp(1))
                 {
-
-                    if (P1Captured == false )
-                    {
-                        P2Captured = true;
-                        P1Captured = false;
-                        Player2Captured();
-                    }
-                    else if(P2Captured ==true)
+                    if (P2Captured == true)
                     {
                         return;
                     }
+                    if (P1Captured == false)
+                    {
+                        P1Captured = false;
+                        P2Captured = true;
+                        OriginalColor = new Color(255, 0, 0);
+
+                        Player2Captured();
+                    }
                     else if (P1Captured == true)
                     {
-                        GM.P2Score++;
-                        GM.P1Score--;
+                        P2Captured = true;
+                        P1Captured = false;
+                        OriginalColor = new Color(255, 0, 0);
+                        Player2CapturedP1();
+
                     }
-
+                    
+                   
                 }
-
-
-
             }
         }
     }
     private void OnMouseExit()
     {
-        /*
-        if (P2Captured == true&& P1Captured ==false)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
-            Debug.Log("Mouse leaving space blue");
-
-        }
-       else  if (P1Captured ==true&& P2Captured ==false)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 255);
-            Debug.Log("Mouse leaving space red");
-
-        }
-        */
-         
-         if (P1Captured == false && P2Captured == false)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
-        }
+        gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
     }
     void Player1Captured()
     {
@@ -131,4 +106,18 @@ public class Triangle : MonoBehaviour {
         Debug.Log("Red Captured");
         GM.P2Score++;
     }
+    void Player2CapturedP1()
+    {
+        Debug.Log("P2 captured blue territory");
+        GM.P2Score++;
+        GM.P1Score--;
+    }
+    void Player1CapturedP2()
+    {
+        Debug.Log("P1 captured red territory");
+
+        GM.P1Score++;
+        GM.P2Score--;
+    }
+
 }

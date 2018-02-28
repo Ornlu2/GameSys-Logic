@@ -29,11 +29,7 @@ public class TriangleSegment : MonoBehaviour {
     }
     private void OnMouseOver()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null)
-        {
-           // Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
-        }
+       
         if (GM.Player1Turn == true)
         {
             if(P2Captured==false)
@@ -42,14 +38,11 @@ public class TriangleSegment : MonoBehaviour {
 
             }
 
-            if (Input.GetMouseButtonUp(0)&& P2Captured == false&& P1Captured == false)
+            if (Input.GetMouseButtonUp(0)&& P2Captured == false && P1Captured == false && GM.P1PlacedPiece == false)
             {
                 Player1Captured();
                 P1Captured = true;
-            }
-          
-
-                    
+            }            
         }
         if (GM.Player2Turn == true)
         {
@@ -57,14 +50,11 @@ public class TriangleSegment : MonoBehaviour {
             {
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
             }
-            if (Input.GetMouseButtonUp(0)&& P1Captured ==false&& P2Captured ==false)
+            if (Input.GetMouseButtonUp(0)&& P1Captured ==false && P2Captured ==false && GM.P2PlacedPiece ==false)
             {
                 Player2Captured();
                 P2Captured = true;
             }
-            
-
-
         }
     }
     private void OnMouseExit()
@@ -78,13 +68,14 @@ public class TriangleSegment : MonoBehaviour {
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 255);
         Debug.Log("Blue Captured");
-        GM.ChangePlayer();
+        GM.P1PlacedPiece = true;
+
     }
     void Player2Captured()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
         Debug.Log("Red Captured");
-        GM.ChangePlayer();
+        GM.P2PlacedPiece = true;
     }
 
 }
