@@ -2239,8 +2239,8 @@ MonoBehaviour:
   P2Score: 0
   P1TurnTime: {fileID: 420694942}
   P2TurnTime: {fileID: 2046727628}
-  turntimeP1: 60
-  turntimeP2: 60
+  turntimeP1: 120
+  turntimeP2: 120
   GameOver: {fileID: 479362125}
 --- !u!4 &140604992
 Transform:
